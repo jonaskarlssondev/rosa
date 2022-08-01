@@ -26,7 +26,7 @@ export default function About() {
           for analysing the dependencies in your codebase.
         </p>
         <p className="text-sm mt-4">
-          It extract the dependencies of your github project and ranks them
+          It extracts the dependencies of your github project and ranks them
           based on a number of parameters such as activity, issues, maintainers,
           and so on.
         </p>
