@@ -13,6 +13,9 @@ export default function About() {
           <a className="text-2xl">ROSA</a>
         </Link>
         <nav className="flex flex-row">
+          <Link href="/">
+            <a className="mr-4">analyse</a>
+          </Link>
           <Link href="/about">
             <a className="mr-4">about</a>
           </Link>
