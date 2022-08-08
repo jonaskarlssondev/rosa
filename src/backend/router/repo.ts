@@ -7,7 +7,7 @@ export const repoRouter = createRouter()
       repository: z.string(),
     }),
     async resolve({ input }) {
-      return fetch('https://api.github.com/repos/' + input.repository)
+      return fetch(`https://api.github.com/repos/${input.repository}`)
       .then(res => res.json())
       .catch(err => {
         console.error(err);
