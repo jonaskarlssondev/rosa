@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Link from "next/link";
+import { Header } from "./header";
 
 export default function About() {
   return (
@@ -8,19 +8,7 @@ export default function About() {
         <title>About | ROSA</title>
       </Head>
 
-      <header className="w-screen p-2 flex self-start justify-between">
-        <Link href="/">
-          <a className="text-2xl">ROSA</a>
-        </Link>
-        <nav className="flex flex-row">
-          <Link href="/">
-            <a className="mr-4">analyse</a>
-          </Link>
-          <Link href="/about">
-            <a className="mr-4">about</a>
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="w-9/12 max-w-prose mt-16 flex justify-center flex-col">
         <h1 className="text-xl mb-4">About</h1>
@@ -35,5 +23,5 @@ export default function About() {
         </p>
       </main>
     </div>
-  );
+  ); 
 }

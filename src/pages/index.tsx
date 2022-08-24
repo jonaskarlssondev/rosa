@@ -1,8 +1,8 @@
 import Head from "next/head";
-import Link from "next/link";
 import React from "react";
 import { trpc } from "../utils/trpc";
 import { Analysis } from "./analysis";
+import { Header } from "./header";
 
 export default function Home() {
   const [repo, setRepo] = React.useState("jonaskarlssondev/rosa");
@@ -31,19 +31,7 @@ export default function Home() {
         <title>Home | ROSA</title>
       </Head>
 
-      <header className="w-screen h-12 p-2 flex justify-between">
-        <Link href="/">
-          <a className="text-2xl">ROSA</a>
-        </Link>
-        <nav className="flex">
-          <Link href="/">
-            <a className="mt-1 mr-4">analyse</a>
-          </Link>
-          <Link href="/about">
-            <a className="mt-1 mr-4">about</a>
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main className="flex flex-col items-center pt-28 w-screen">
         <div>
