@@ -1,4 +1,4 @@
-import { map, z } from "zod";
+import { z } from "zod";
 import { createRouter } from "./context";
 
 export const repoRouter = createRouter()
@@ -7,11 +7,15 @@ export const repoRouter = createRouter()
       repository: z.string(),
     }),
     async resolve({ input }): Promise<Repository> {
-      return fetch('https://api.github.com/repos/' + input.repository)
-      .then(res => res.json())
-      .catch(err => {
-        console.error(err);
-      })
+      const issues = await fetch('https://api.github.com/repos/' + input.repository + '/issues')
+        .then(res => res.json())
+        .catch(err => console.error(err));
+
+      const repo = await fetch('https://api.github.com/repos/' + input.repository)
+        .then(res => res.json())
+        .catch(err => console.error(err))
+
+      const 
     },
   });
 
@@ -20,7 +24,7 @@ export const repoRouter = createRouter()
     full_name: string;
     description: string;
   
-    contributors: Contributor[];
+    contributors: number;
     issues: Issue[];
     commits: Commit[];
     pullrequests: PullRequest[];
@@ -33,7 +37,6 @@ export const repoRouter = createRouter()
     commits_url: string;
     pulls_url: string;
     merges_url: string;
-    downloads_url: string;
   };
   
   export type Contributor = {
@@ -41,7 +44,10 @@ export const repoRouter = createRouter()
     contributions: number;
   };
   
-  export type Issue = {};
+  export type Issue = {
+    created_at: Date;
+    closed_at?: Date;
+  };
   
   export type Commit = {
     author: string;
