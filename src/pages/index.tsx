@@ -1,7 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import { trpc } from "../utils/trpc";
-import { Analysis } from "./analysis";
+import { Analyse } from "./analysis";
 import { Header } from "./header";
 
 export default function Home() {
@@ -50,7 +50,7 @@ export default function Home() {
         </div>
 
         <div className="mt-8">
-          {data != null && <Analysis repository={data} />}
+          <Analyse data={data} />
         </div>
       </main>
     </div>

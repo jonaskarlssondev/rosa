@@ -1,6 +1,32 @@
 import React from "react";
 import { Repository } from "../backend/repository/repository";
 
+export const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
+  data,
+}) => {
+  if (data != null) {
+    if (typeof data === "number") {
+      return <AnalysisError err={data}></AnalysisError>;
+    }
+    return <Analysis repository={data as Repository} />;
+  }
+
+  return <div></div>;
+};
+
+export const AnalysisError: React.FC<{ err: Number }> = ({ err }) => {
+  switch (err) {
+    case 403:
+      return (
+        <div>{"Sorry, your requests have been rate limited by github."}</div>
+      );
+    case 500:
+      return <div>{"Sorry, something broke :("}</div>;
+    default:
+      return <div>{"Sorry, someone made a whoopsie."}</div>;
+  }
+};
+
 export const Analysis: React.FC<{ repository: Repository }> = ({
   repository,
 }) => {
@@ -9,8 +35,8 @@ export const Analysis: React.FC<{ repository: Repository }> = ({
   function score(repo: Repository): number {
     let score = 0;
     score += repo.archived ? -75 : 10;
-    score += Math.min(repo.stars / 100, 40);
-    score += Math.min(repo.forks / 200, 10);
+    score += Math.min(repo.stars / 1000, 40);
+    score += Math.min(repo.forks / 2000, 10);
 
     if (repo.issues_stat.closed_issues + repo.issues_stat.open_issues > 0) {
       score +=

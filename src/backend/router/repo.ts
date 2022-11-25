@@ -7,34 +7,52 @@ export const repoRouter = createRouter()
     input: z.object({
       repository: z.string(),
     }),
-    async resolve({ input }): Promise<Repository> {
+    async resolve({ input }): Promise<Repository | Number> {
+      let err = 0;
 
       const open_issues: Promise<Response<GithubIssue[]>> = fetch('https://api.github.com/search/issues?q=repo:' + input.repository + '+type:issue+state:open+sort:updated-desc')
-        .then(res => res.json())
-        .catch(err => console.error(err));
+        .then(res => {  return res.json() });
 
       const closed_issues: Promise<Response<GithubIssue[]>> = fetch('https://api.github.com/search/issues?q=repo:' + input.repository + '+type:issue+state:closed+sort:updated-desc')
-        .then(res => res.json())
-        .catch(err => console.error(err));
-
-      const pulls: Promise<PullRequest[]> = fetch('https://api.github.com/repos/' + input.repository + '/pulls')
-        .then(res => res.json())
-        .catch(err => console.error(err));
-      
-      const commits: Promise<Commit[]> = fetch('https://api.github.com/repos/' + input.repository + '/commits')
-        .then(res => res.json())
-        .catch(err => console.error(err));
-      
-      const contributors: Promise<number> = fetch('https://api.github.com/repos/' + input.repository + '/contributors?per_page=1&anon=true')
-        .then(res => Number(res.headers.get('link')?.split(',')?.find(x => x.includes('rel="last"'))?.split('&page=')[1]?.split('>')[0] ?? 0))
-        .catch(err => {
-          console.error(err);
-          return 0;
+        .then(res => { 
+          if (res.status != 200) {
+            err = res.status;
+          }
+          return res.json() 
         });
 
+      const pulls: Promise<PullRequest[]> = fetch('https://api.github.com/repos/' + input.repository + '/pulls')
+      .then(res => { 
+        if (res.status != 200) {
+          err = res.status;
+        }
+        return res.json() 
+      });
+      
+      const commits: Promise<Commit[]> = fetch('https://api.github.com/repos/' + input.repository + '/commits')
+      .then(res => { 
+        if (res.status != 200) {
+          err = res.status;
+        }
+        return res.json() 
+      });
+      
+      const contributors: Promise<number> = fetch('https://api.github.com/repos/' + input.repository + '/contributors?per_page=1&anon=true')
+        .then(res => {
+          if (res.status != 200) {
+            err = res.status;
+          }
+          return Number(res.headers.get('link')?.split(',')?.find(x => x.includes('rel="last"'))?.split('&page=')[1]?.split('>')[0] ?? 0);
+        });
+
+
       const repometa: Promise<Meta> = fetch('https://api.github.com/repos/' + input.repository)
-        .then(res => res.json())
-        .catch(err => console.error(err))
+        .then(res => { 
+          if (res.status != 200) {
+            err = res.status;
+          }
+          return res.json() 
+        });
 
       const [repo, open_iss, closed_iss, pull, com, con] = await Promise.all([repometa, open_issues, closed_issues, pulls, commits, contributors]);
 
@@ -45,6 +63,10 @@ export const repoRouter = createRouter()
         open_issues: open_iss,
         pulls: pull,
         contributors: con,
+      }
+
+      if (err != 0) {
+        return err;
       }
 
       return mapRepository(github);
