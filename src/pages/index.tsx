@@ -16,9 +16,7 @@ export default function Home() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    refetch().then((response) => {
-      console.log(response.data);
-    });
+    refetch();
   };
 
   const handleChange = (e: any) => {
