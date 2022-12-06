@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Header } from "./header";
+import Header from "./header";
 
 export default function About() {
   return (

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-export const Header: React.FC<{}> = ({}) => {
+const Header: React.FC<{}> = ({}) => {
   return (
     <header className="w-screen h-12 p-2 flex justify-between">
         <Link href="/">
@@ -18,3 +18,5 @@ export const Header: React.FC<{}> = ({}) => {
       </header>
   );
 };
+
+export default Header;

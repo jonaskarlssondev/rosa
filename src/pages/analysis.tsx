@@ -1,7 +1,7 @@
 import React from "react";
 import { Repository } from "../backend/repository/repository";
 
-export const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
+const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
   data,
 }) => {
   if (data != null) {
@@ -14,7 +14,9 @@ export const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
   return <div></div>;
 };
 
-export const AnalysisError: React.FC<{ err: Number }> = ({ err }) => {
+export default Analyse;
+
+const AnalysisError: React.FC<{ err: Number }> = ({ err }) => {
   switch (err) {
     case 403:
       return (
@@ -27,7 +29,7 @@ export const AnalysisError: React.FC<{ err: Number }> = ({ err }) => {
   }
 };
 
-export const Analysis: React.FC<{ repository: Repository }> = ({
+const Analysis: React.FC<{ repository: Repository }> = ({
   repository,
 }) => {
   repository.score = score(repository);

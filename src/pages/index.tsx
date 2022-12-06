@@ -1,8 +1,8 @@
 import Head from "next/head";
 import React from "react";
 import { trpc } from "../utils/trpc";
-import { Analyse } from "./analysis";
-import { Header } from "./header";
+import Analyse from "./analysis";
+import Header from "./header";
 
 export default function Home() {
   const [repo, setRepo] = React.useState("jonaskarlssondev/rosa");
