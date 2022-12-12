@@ -1,7 +1,7 @@
 import React from "react";
-import { Repository } from "../types/repository";
-
-const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
+import type { Repository } from "../types/repository";
+ 
+const Analyse: React.FC<{ data: Repository | number | undefined }> = ({
   data,
 }) => {
   if (data != null) {
@@ -16,7 +16,7 @@ const Analyse: React.FC<{ data: Repository | Number | undefined }> = ({
 
 export default Analyse;
 
-const AnalysisError: React.FC<{ err: Number }> = ({ err }) => {
+const AnalysisError: React.FC<{ err: number }> = ({ err }) => {
   switch (err) {
     case 403:
       return (

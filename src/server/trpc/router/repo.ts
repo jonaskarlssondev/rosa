@@ -8,7 +8,7 @@ import { Repository, Response } from "../../../types/repository";
 export const repoRouter = router({
   fetch: publicProcedure
     .input(z.object({ repository: z.string() }))
-    .query(async ({ input }): Promise<Repository | Number> => {
+    .query(async ({ input }): Promise<Repository | number> => {
       let err = 0;
 
       const open_issues: Promise<Response<GithubIssue[]>> = fetch(

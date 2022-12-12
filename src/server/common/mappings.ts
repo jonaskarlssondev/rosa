@@ -74,7 +74,7 @@ function daysBetween(start: string, end: string): number {
   return Math.round(delta / (1000 * 3600 * 24));
 }
 
-function daysSince(date?: string | null, defaultValue: number = 0): number {
+function daysSince(date?: string | null, defaultValue = 0): number {
   if (!date) {
     return defaultValue;
   }
