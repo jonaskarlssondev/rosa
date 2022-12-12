@@ -1,18 +1,18 @@
+import { type NextPage } from "next";
 import Head from "next/head";
 import React from "react";
+
 import { trpc } from "../utils/trpc";
 import Analyse from "./analysis";
 import Header from "./header";
 
-export default function Home() {
+const Home: NextPage = () => {
   const [repo, setRepo] = React.useState("jonaskarlssondev/rosa");
 
-  const { data, refetch, isLoading } = trpc.useQuery(
-    ["fetch-repo", { repository: repo }],
-    {
-      enabled: false,
-    }
-  );
+  const {data, refetch } = trpc.repo.fetch.useQuery({ repository: repo}, { 
+    enabled: false, 
+    keepPreviousData: true
+  });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -24,7 +24,8 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col w-screen h-screen">
+    <>
+      <div className="flex flex-col w-screen h-screen">
       <Head>
         <title>Home | ROSA</title>
       </Head>
@@ -44,7 +45,7 @@ export default function Home() {
             <input
               type="submit"
               className="text-sm max-w-24 h-10 px-3 ml-2 rounded bg-emerald-600 text-slate-100 cursor-pointer"
-              value={isLoading ? "Loading..." : "Analyse"}
+              value="Analyse"
             />
           </form>
         </div>
@@ -54,5 +55,8 @@ export default function Home() {
         </div>
       </main>
     </div>
+    </>
   );
-}
+};
+
+export default Home;
