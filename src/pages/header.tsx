@@ -1,20 +1,20 @@
 import Link from "next/link";
 import React from "react";
 
-const Header: React.FC<{}> = ({}) => {
+const Header: React.FC = () => {
   return (
     <header className="w-screen h-12 p-2 flex justify-between">
-        <Link href="/">
-          <a className="text-2xl">ROSA</a>
+      <Link href="/" className="text-2xl">
+        ROSA
+      </Link>
+      <nav className="flex">
+        <Link href="/" className="mt-1 mr-4">
+          analyse
         </Link>
-        <nav className="flex">
-          <Link href="/">
-            <a className="mt-1 mr-4">analyse</a>
-          </Link>
-          <Link href="/about">
-            <a className="mt-1 mr-4">about</a>
-          </Link>
-        </nav>
+        <Link href="/about" className="mt-1 mr-4">
+          about
+        </Link>
+      </nav>
       </header>
   );
 };
