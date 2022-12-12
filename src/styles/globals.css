@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --color-darkest: #181818;
+    --color-lightest: #c3c3c3;
+    --color-green-light: #606c38;
+    --color-green-dark: #283618;
+  }
+  
+  body {
+    @apply bg-gray-700 text-gray-300;
+  }
